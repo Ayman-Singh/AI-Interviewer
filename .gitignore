@@ -1,0 +1,78 @@
+# Environment files - CRITICAL!
+.env
+.env.local
+.env.production
+.env.development
+*.env
+backend/.env
+frontend/.env
+
+# Documentation (if you want to keep it private)
+README.md
+
+# Docker volumes (IMPORTANT - can be huge!)
+mysql_data/
+**/mysql_data/
+
+# Go compiled binaries and build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+backend/tmp/
+backend/main
+backend/*.exe
+vendor/
+
+# React / Node
+/frontend/node_modules/
+/frontend/dist/
+/frontend/build/
+/frontend/.vite/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Docker
+*.pid
+*.seed
+*.pid.lock
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
