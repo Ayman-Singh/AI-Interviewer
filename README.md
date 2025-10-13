@@ -97,7 +97,7 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 ### Health Check
 ```
@@ -236,7 +236,7 @@ The AI evaluates responses on a 0-10 scale:
 - [ ] Interview scheduling
 - [ ] Peer comparison and benchmarking
 
-## 👥 Authors
+##  Authors
 
 - Ayman Singh
 
