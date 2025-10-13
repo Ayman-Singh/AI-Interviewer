@@ -224,7 +224,7 @@ The AI evaluates responses on a 0-10 scale:
 - **4-5.9**: Fair - Basic understanding but needs more depth
 - **0-3.9**: Needs Improvement - Significant gaps in knowledge
 
-## 🚧 Future Enhancements
+##  Future Enhancements
 
 - [ ] User authentication and authorization
 - [ ] Voice-based interview mode
@@ -235,24 +235,6 @@ The AI evaluates responses on a 0-10 scale:
 - [ ] Custom question banks
 - [ ] Interview scheduling
 - [ ] Peer comparison and benchmarking
-
-## 📝 Environment Variables
-
-### Backend (.env)
-```env
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=interviewer
-DB_PASSWORD=interviewerpass
-DB_NAME=ai_interviewer
-GEMINI_API_KEY=your_api_key
-PORT=8080
-```
-
-### Frontend (.env)
-```env
-VITE_API_URL=http://localhost:8080/api
-```
 
 ## 👥 Authors
 
