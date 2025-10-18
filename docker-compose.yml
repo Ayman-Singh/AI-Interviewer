@@ -1,13 +1,13 @@
 services:
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0.32
     container_name: ai_interviewer_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
-      MYSQL_DATABASE: ${DB_NAME:-ai_interviewer}
-      MYSQL_USER: ${DB_USER:-interviewer}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-interviewerpass}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -31,9 +31,9 @@ services:
     environment:
       DB_HOST: mysql
       DB_PORT: 3306
-      DB_USER: ${DB_USER:-interviewer}
-      DB_PASSWORD: ${DB_PASSWORD:-interviewerpass}
-      DB_NAME: ${DB_NAME:-ai_interviewer}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       PORT: 8080
     depends_on:
