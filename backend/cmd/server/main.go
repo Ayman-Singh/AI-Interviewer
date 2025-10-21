@@ -73,11 +73,13 @@ func main() {
 		})
 	})
 
-	// API routes (StrictSlash is now handled globally)
+	// API routes (StrictSlash is handled globally)
 	router.HandleFunc("/api/health", handler.HealthCheck).Methods("GET")
-	router.HandleFunc("/api/interview/start", handler.StartInterview).Methods("POST")
+	// --- FIX HERE: Add OPTIONS ---
+	router.HandleFunc("/api/interview/start", handler.StartInterview).Methods("POST", "OPTIONS")
 	router.HandleFunc("/api/interview/{id}", handler.GetInterview).Methods("GET")
-	router.HandleFunc("/api/interview/submit", handler.SubmitAnswer).Methods("POST")
+	// --- FIX HERE: Add OPTIONS ---
+	router.HandleFunc("/api/interview/submit", handler.SubmitAnswer).Methods("POST", "OPTIONS")
 	router.HandleFunc("/api/interviews", handler.GetUserInterviews).Methods("GET")
 
 	// Start server
