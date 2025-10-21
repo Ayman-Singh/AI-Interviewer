@@ -21,9 +21,9 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
 # Copy the binary from builder
-COPY --from=builder /app/main .
+COPY --from=builder /app/main ./main-v2
 COPY --from=builder /app/db ./db
 
 EXPOSE 8080
 
-CMD ["./main"]
+CMD ["./main-v2"]
