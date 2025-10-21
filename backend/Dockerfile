@@ -31,4 +31,5 @@ RUN chmod +x ./main-v5
 EXPOSE 8080
 
 # CHANGE 2: Run the init.sql script first, then start the application
-CMD ["sh", "-c", "mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD $DB_NAME < ./db/init.sql && ./main-v5"]
+CMD ["sh", "-c", "mysql --ssl-mode=DISABLED -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD $DB_NAME < ./db/init.sql && ./main-v5"]
+
