@@ -27,6 +27,11 @@ func New(repo *repository.Repository, aiService *ai.AIService) *Handler {
 }
 
 func (h *Handler) StartInterview(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+	
 	var req models.StartInterviewRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
