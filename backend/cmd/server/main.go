@@ -73,7 +73,7 @@ func main() {
 	})
 
 	// API routes
-	api := router.PathPrefix("/api").Subrouter()
+	api := router.PathPrefix("/api").Subrouter().StrictSlash(true)
 	api.HandleFunc("/health", handler.HealthCheck).Methods("GET")
 	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST")
 	api.HandleFunc("/interview/{id}", handler.GetInterview).Methods("GET")
