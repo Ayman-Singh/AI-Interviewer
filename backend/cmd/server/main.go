@@ -52,6 +52,7 @@ func main() {
 
 	// Setup router
 	router := mux.NewRouter()
+	router.StrictSlash(true) // Apply StrictSlash globally
 
 	// Setup CORS
 	c := cors.New(cors.Options{
@@ -72,13 +73,12 @@ func main() {
 		})
 	})
 
-	// API routes
-	api := router.PathPrefix("/api").Subrouter().StrictSlash(true)
-	api.HandleFunc("/health", handler.HealthCheck).Methods("GET")
-	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST")
-	api.HandleFunc("/interview/{id}", handler.GetInterview).Methods("GET")
-	api.HandleFunc("/interview/submit", handler.SubmitAnswer).Methods("POST")
-	api.HandleFunc("/interviews", handler.GetUserInterviews).Methods("GET")
+	// API routes (StrictSlash is now handled globally)
+	router.HandleFunc("/api/health", handler.HealthCheck).Methods("GET")
+	router.HandleFunc("/api/interview/start", handler.StartInterview).Methods("POST")
+	router.HandleFunc("/api/interview/{id}", handler.GetInterview).Methods("GET")
+	router.HandleFunc("/api/interview/submit", handler.SubmitAnswer).Methods("POST")
+	router.HandleFunc("/api/interviews", handler.GetUserInterviews).Methods("GET")
 
 	// Start server
 	addr := fmt.Sprintf(":%s", cfg.Port)
