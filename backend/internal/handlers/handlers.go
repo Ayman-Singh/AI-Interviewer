@@ -31,7 +31,7 @@ func (h *Handler) StartInterview(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		return
 	}
-	
+
 	var req models.StartInterviewRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
@@ -89,6 +89,11 @@ func (h *Handler) StartInterview(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) SubmitAnswer(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodOptions {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+	
 	var req models.SubmitAnswerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
