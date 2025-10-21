@@ -21,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
-
+    log.Printf("DEBUG: Allowed Origins Loaded: %v", cfg.AllowedOrigins)
 	// Connect to database with retry
 	var db *database.Database
 	maxRetries := 10
