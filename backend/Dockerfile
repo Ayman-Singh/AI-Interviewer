@@ -24,6 +24,9 @@ WORKDIR /root/
 COPY --from=builder /app/main ./main-v2
 COPY --from=builder /app/db ./db
 
+RUN chmod +x ./main-v2
+
+
 EXPOSE 8080
 
 CMD ["./main-v2"]
