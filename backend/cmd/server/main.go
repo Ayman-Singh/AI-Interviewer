@@ -21,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load config: %v", err)
 	}
-    log.Printf("DEBUG: Allowed Origins Loaded: %v", cfg.AllowedOrigins)
+	log.Printf("DEBUG: Allowed Origins Loaded: %v", cfg.AllowedOrigins)
 	// Connect to database with retry
 	var db *database.Database
 	maxRetries := 10
@@ -53,6 +53,17 @@ func main() {
 	// Setup router
 	router := mux.NewRouter()
 
+	// Setup CORS
+	c := cors.New(cors.Options{
+		AllowedOrigins:   cfg.AllowedOrigins,
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "Authorization"},
+		AllowCredentials: true,
+		Debug:            true,
+	})
+
+	router.Use(c.Handler)
+
 	// Logging middleware
 	router.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -64,26 +75,16 @@ func main() {
 	// API routes
 	api := router.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/health", handler.HealthCheck).Methods("GET")
-	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST","OPTIONS")
+	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST")
 	api.HandleFunc("/interview/{id}", handler.GetInterview).Methods("GET")
-	api.HandleFunc("/interview/submit", handler.SubmitAnswer).Methods("POST","OPTIONS")
+	api.HandleFunc("/interview/submit", handler.SubmitAnswer).Methods("POST")
 	api.HandleFunc("/interviews", handler.GetUserInterviews).Methods("GET")
-
-	// Setup CORS
-	c := cors.New(cors.Options{
-		AllowedOrigins:   cfg.AllowedOrigins,
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type", "Authorization"},
-		AllowCredentials: true,
-	})
-
-	httpHandler := c.Handler(router)
 
 	// Start server
 	addr := fmt.Sprintf(":%s", cfg.Port)
 	log.Printf("Server starting on %s", addr)
 
-	if err := http.ListenAndServe(addr, httpHandler); err != nil {
+	if err := http.ListenAndServe(addr, router); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
 }
