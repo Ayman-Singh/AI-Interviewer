@@ -64,9 +64,9 @@ func main() {
 	// API routes
 	api := router.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/health", handler.HealthCheck).Methods("GET")
-	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST")
+	api.HandleFunc("/interview/start", handler.StartInterview).Methods("POST","OPTIONS")
 	api.HandleFunc("/interview/{id}", handler.GetInterview).Methods("GET")
-	api.HandleFunc("/interview/submit", handler.SubmitAnswer).Methods("POST")
+	api.HandleFunc("/interview/submit", handler.SubmitAnswer).Methods("POST","OPTIONS")
 	api.HandleFunc("/interviews", handler.GetUserInterviews).Methods("GET")
 
 	// Setup CORS
