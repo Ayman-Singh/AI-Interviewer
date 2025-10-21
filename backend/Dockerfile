@@ -22,8 +22,8 @@ RUN apk --no-cache add ca-certificates mysql-client
 WORKDIR /root/
 
 # Copy the binary from builder
-COPY --from-builder /app/main-v5 .
-COPY --from-builder /app/db ./db
+COPY --from=builder /app/main-v5 .
+COPY --from=builder /app/db ./db
 
 # Give the binary permission to run
 RUN chmod +x ./main-v5
