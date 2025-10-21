@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -15,6 +16,7 @@ type Config struct {
 	DBName       string
 	GeminiAPIKey string
 	Port         string
+	AllowedOrigins []string
 }
 
 func Load() (*Config, error) {
@@ -30,6 +32,17 @@ func Load() (*Config, error) {
 		GeminiAPIKey: getEnv("GEMINI_API_KEY", ""),
 		Port:         getEnv("PORT", "8080"),
 	}
+
+	// Parse allowed origins (comma-separated) into a slice
+	allowed := getEnv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:5173")
+	var origins []string
+	for _, s := range strings.Split(allowed, ",") {
+		s = strings.TrimSpace(s)
+		if s != "" {
+			origins = append(origins, s)
+		}
+	}
+	config.AllowedOrigins = origins
 
 	if config.GeminiAPIKey == "" {
 		return nil, fmt.Errorf("GEMINI_API_KEY is required")
