@@ -11,22 +11,22 @@ RUN go mod download && go mod verify
 COPY . .
 
 # Build the application
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main ./cmd/server
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main-v3 ./cmd/server
 
 # Final stage
 FROM alpine:latest
 
 RUN apk --no-cache add ca-certificates
-# Cache-busting comment
+
 WORKDIR /root/
 
 # Copy the binary from builder
-COPY --from=builder /app/main ./main-v2
+COPY --from=builder /app/main-v3 .
 COPY --from=builder /app/db ./db
 
-RUN chmod +x ./main-v2
-
+# Give the binary permission to run
+RUN chmod +x ./main-v3
 
 EXPOSE 8080
 
-CMD ["./main-v2"]
+CMD ["./main-v3"]
