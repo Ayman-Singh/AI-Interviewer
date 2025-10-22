@@ -2,6 +2,12 @@
 
 A full-stack AI-powered interview preparation platform that helps candidates practice and improve their interview skills with real-time feedback powered by Google Gemini AI.
 
+#Deployed
+https://ai-interviewer-rust.vercel.app
+
+backend and mysql deployed on Railway 
+Frontend deployed on Vercel
+
 ##  Features
 
 - **AI-Generated Questions**: Dynamic interview questions tailored to specific positions and difficulty levels
